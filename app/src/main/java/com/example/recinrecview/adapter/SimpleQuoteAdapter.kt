@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.recinrecview.R
 import com.example.recinrecview.model.GOTQuoteResponseItem
 
-class SimpleQuoteAdapter(val quotes: ArrayList<GOTQuoteResponseItem>): RecyclerView.Adapter<SimpleQuoteAdapter.MyViewHolder>() {
+class SimpleQuoteAdapter(val quotes: ArrayList<GOTQuoteResponseItem>, val onItemClick: ItemClickListener): RecyclerView.Adapter<SimpleQuoteAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_view,parent,false)
@@ -20,7 +20,7 @@ class SimpleQuoteAdapter(val quotes: ArrayList<GOTQuoteResponseItem>): RecyclerV
        holder.name.text = quotes[position].name
        holder.memberName.text = quotes[position].slug
         holder.btnShot.setOnClickListener {
-
+            onItemClick.onItemClick(quote = quotes[position])
         }
     }
 
@@ -33,4 +33,7 @@ class SimpleQuoteAdapter(val quotes: ArrayList<GOTQuoteResponseItem>): RecyclerV
         var name = itemView.findViewById<TextView>(R.id.name)
         var btnShot = itemView.findViewById<Button>(R.id.btnShow)
     }
+}
+interface ItemClickListener{
+    fun onItemClick(quote:GOTQuoteResponseItem)
 }

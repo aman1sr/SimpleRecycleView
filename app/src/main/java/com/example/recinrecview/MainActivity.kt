@@ -14,11 +14,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.recinrecview.adapter.ItemClickListener
 import com.example.recinrecview.adapter.SimpleQuoteAdapter
 import com.example.recinrecview.databinding.ActivityMainBinding
+import com.example.recinrecview.model.GOTQuoteResponseItem
 import kotlinx.coroutines.launch
 const val TAG = "Quote_d"
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ItemClickListener {
     lateinit var binding: ActivityMainBinding
     lateinit var viewModel: QuoteViewModel
 
@@ -47,11 +49,15 @@ class MainActivity : AppCompatActivity() {
                     binding.progressBar.visibility = View.GONE
                     Log.d(TAG, "observeQuoteData: ${quoteList}")
                     quoteList?.let {
-                        binding.recView.adapter = SimpleQuoteAdapter(it)
+                        binding.recView.adapter = SimpleQuoteAdapter(it,this@MainActivity)
                         binding.recView.layoutManager = LinearLayoutManager(this@MainActivity)
                     }
                 }
             }
         }
+    }
+
+    override fun onItemClick(quote: GOTQuoteResponseItem) {
+        Toast.makeText(this, "${quote.slug} clicked", Toast.LENGTH_SHORT).show()  // show bottomSheet
     }
 }
