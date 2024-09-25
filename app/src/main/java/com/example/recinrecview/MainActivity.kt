@@ -10,6 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.recinrecview.databinding.ActivityMainBinding
 import kotlinx.coroutines.launch
 const val TAG = "Quote_d"
@@ -37,9 +38,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun observeQuoteData() {
         lifecycleScope.launch {
-            viewModel.data.collect{quote ->
-                Log.d(TAG, "observeQuoteData: ${quote}")
-                Toast.makeText(this@MainActivity, "Data Fetch : ${quote?.size}", Toast.LENGTH_SHORT).show()
+            repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.data.collect{quote ->
+                    Log.d(TAG, "observeQuoteData: ${quote}")
+                    Toast.makeText(this@MainActivity, "Data Fetch : ${quote?.size}", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
