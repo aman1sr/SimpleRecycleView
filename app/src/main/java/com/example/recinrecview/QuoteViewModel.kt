@@ -4,14 +4,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.recinrecview.model.GOTQuoteResponse
+import com.example.recinrecview.model.GOTQuoteResponseItem
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 
 class QuoteViewModel(private val repository: QuoteRepository) : ViewModel() {
-  private val _data  = MutableStateFlow<GOTQuoteResponse?>(null)
-    val data : StateFlow<GOTQuoteResponse?> = _data
+  private val _data  = MutableStateFlow<ArrayList<GOTQuoteResponseItem>?>(null)
+    val data : StateFlow<ArrayList<GOTQuoteResponseItem>?> = _data
 
     init {
         fetchQuotes()

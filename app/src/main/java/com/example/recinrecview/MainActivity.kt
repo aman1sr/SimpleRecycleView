@@ -2,6 +2,8 @@ package com.example.recinrecview
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.SimpleCursorAdapter
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +13,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.recinrecview.adapter.SimpleQuoteAdapter
 import com.example.recinrecview.databinding.ActivityMainBinding
 import kotlinx.coroutines.launch
 const val TAG = "Quote_d"
@@ -39,9 +43,13 @@ class MainActivity : AppCompatActivity() {
     private fun observeQuoteData() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewModel.data.collect{quote ->
-                    Log.d(TAG, "observeQuoteData: ${quote}")
-                    Toast.makeText(this@MainActivity, "Data Fetch : ${quote?.size}", Toast.LENGTH_SHORT).show()
+                viewModel.data.collect{quoteList ->
+                    binding.progressBar.visibility = View.GONE
+                    Log.d(TAG, "observeQuoteData: ${quoteList}")
+                    quoteList?.let {
+                        binding.recView.adapter = SimpleQuoteAdapter(it)
+                        binding.recView.layoutManager = LinearLayoutManager(this@MainActivity)
+                    }
                 }
             }
         }
