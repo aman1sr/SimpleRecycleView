@@ -4,14 +4,15 @@ This is a Sample App to Demo working of a Nested RecyclerView, Where the parent 
 ### App Constist of serveral Parts : 
 - **main branch** : basic Network Layer , getting the list Quotes using Flow API and Retrofit
 - **RecView branch**: basic Simple RecyclerView, with button show click event is done using interface
-- **RecView2 branch** : coming soon
+- **RecView2 branch** : implented ListAdapter with DiffUtils, with button click event with lambda callback
 - **NestedRecView branch** : coming soon
 
 
 ### Major Highlights:
 - Network Layer : Retrofit
 - Flow API used to emit and collect list of quotes
-- SimpleQuoteAdapter : traditionally implemented passing data via Constructor and used interface for click event
+- SimpleQuoteAdapter : used ListAdapter which uses DiffUtils to compare new list & Old list in background thread 
+- 
 
 
 <p align="center">
