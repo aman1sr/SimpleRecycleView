@@ -5,11 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recinrecview.R
 import com.example.recinrecview.model.GOTQuoteResponseItem
 
-class SimpleQuoteAdapter(val quotes: ArrayList<GOTQuoteResponseItem>, val onItemClick: ItemClickListener): RecyclerView.Adapter<SimpleQuoteAdapter.MyViewHolder>() {
+// https://medium.com/geekculture/android-listadapter-a-better-implementation-for-the-recyclerview-1af1826a7d21
+class SimpleQuoteAdapter( val onItemClick: ItemClickListener): ListAdapter<GOTQuoteResponseItem,SimpleQuoteAdapter.MyViewHolder>(UserDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_view,parent,false)
@@ -17,15 +20,12 @@ class SimpleQuoteAdapter(val quotes: ArrayList<GOTQuoteResponseItem>, val onItem
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-       holder.name.text = quotes[position].name
-       holder.memberName.text = quotes[position].slug
+        val quote = getItem(position)
+       holder.name.text = quote.name
+       holder.memberName.text = quote.slug
         holder.btnShot.setOnClickListener {
-            onItemClick.onItemClick(quote = quotes[position])
+            onItemClick.onItemClick(quote = quote)
         }
-    }
-
-    override fun getItemCount(): Int {
-       return quotes.size
     }
 
      class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -33,6 +33,22 @@ class SimpleQuoteAdapter(val quotes: ArrayList<GOTQuoteResponseItem>, val onItem
         var name = itemView.findViewById<TextView>(R.id.name)
         var btnShot = itemView.findViewById<Button>(R.id.btnShow)
     }
+}
+private class UserDiffCallback: DiffUtil.ItemCallback<GOTQuoteResponseItem>(){
+    override fun areItemsTheSame(
+        oldItem: GOTQuoteResponseItem,
+        newItem: GOTQuoteResponseItem
+    ): Boolean {
+       return oldItem == newItem
+    }
+
+    override fun areContentsTheSame(
+        oldItem: GOTQuoteResponseItem,
+        newItem: GOTQuoteResponseItem
+    ): Boolean {
+        return oldItem == newItem
+    }
+
 }
 interface ItemClickListener{
     fun onItemClick(quote:GOTQuoteResponseItem)
