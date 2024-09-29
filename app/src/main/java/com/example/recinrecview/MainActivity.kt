@@ -20,7 +20,7 @@ import com.example.recinrecview.databinding.ActivityMainBinding
 import com.example.recinrecview.model.GOTQuoteResponseItem
 import kotlinx.coroutines.launch
 const val TAG = "Quote_d"
-class MainActivity : AppCompatActivity(), ItemClickListener {
+class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     lateinit var viewModel: QuoteViewModel
 
@@ -49,7 +49,9 @@ class MainActivity : AppCompatActivity(), ItemClickListener {
                     binding.progressBar.visibility = View.GONE
                     Log.d(TAG, "observeQuoteData: ${quoteList}")
                     quoteList?.let {
-                        val adapter =  SimpleQuoteAdapter(this@MainActivity)
+                        val adapter =  SimpleQuoteAdapter{ quote ->
+                            Toast.makeText(this@MainActivity, "${quote.slug} clicked", Toast.LENGTH_SHORT).show()  // show bottomSheet
+                        }
                         adapter.submitList(it)
                         binding.recView.adapter =adapter
                         binding.recView.layoutManager = LinearLayoutManager(this@MainActivity)
@@ -59,7 +61,5 @@ class MainActivity : AppCompatActivity(), ItemClickListener {
         }
     }
 
-    override fun onItemClick(quote: GOTQuoteResponseItem) {
-        Toast.makeText(this, "${quote.slug} clicked", Toast.LENGTH_SHORT).show()  // show bottomSheet
-    }
+
 }

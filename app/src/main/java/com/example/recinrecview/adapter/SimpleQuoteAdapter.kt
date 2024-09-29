@@ -12,7 +12,7 @@ import com.example.recinrecview.R
 import com.example.recinrecview.model.GOTQuoteResponseItem
 
 // https://medium.com/geekculture/android-listadapter-a-better-implementation-for-the-recyclerview-1af1826a7d21
-class SimpleQuoteAdapter( val onItemClick: ItemClickListener): ListAdapter<GOTQuoteResponseItem,SimpleQuoteAdapter.MyViewHolder>(UserDiffCallback()) {
+class SimpleQuoteAdapter( val onItemClick: (GOTQuoteResponseItem)-> Unit ): ListAdapter<GOTQuoteResponseItem,SimpleQuoteAdapter.MyViewHolder>(UserDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_view,parent,false)
@@ -24,7 +24,7 @@ class SimpleQuoteAdapter( val onItemClick: ItemClickListener): ListAdapter<GOTQu
        holder.name.text = quote.name
        holder.memberName.text = quote.slug
         holder.btnShot.setOnClickListener {
-            onItemClick.onItemClick(quote = quote)
+            onItemClick.invoke(quote)
         }
     }
 
