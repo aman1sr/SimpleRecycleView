@@ -28,7 +28,7 @@ class SimpleQuoteAdapter(val quotes: ArrayList<GOTQuoteResponseItem>, val onItem
        return quotes.size
     }
 
-    inner class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+     class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         var memberName = itemView.findViewById<TextView>(R.id.memberName)
         var name = itemView.findViewById<TextView>(R.id.name)
         var btnShot = itemView.findViewById<Button>(R.id.btnShow)

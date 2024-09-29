@@ -49,7 +49,8 @@ class MainActivity : AppCompatActivity(), ItemClickListener {
                     binding.progressBar.visibility = View.GONE
                     Log.d(TAG, "observeQuoteData: ${quoteList}")
                     quoteList?.let {
-                        binding.recView.adapter = SimpleQuoteAdapter(it,this@MainActivity)
+                        binding.recView.adapter = SimpleQuoteAdapter(it,this@MainActivity) // passing context to adapter may cause MemoryLeak problem or it's RunTime impl. scenario such that Adapter is only able to access th e ovverride one,,
+                                                                                                        //  this vs Lambda situation what more eff
                         binding.recView.layoutManager = LinearLayoutManager(this@MainActivity)
                     }
                 }
