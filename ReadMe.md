@@ -15,6 +15,6 @@ References:
 
 
 <p align="center">
-  <img alt="RecView1" src="https://github.com/aman1sr/RecycleInRecyclerView/blob/RecView/screenshot/simpleRecView.png?raw=true" width="360" height="640">
+  <img alt="RecView1" src="https://raw.githubusercontent.com/aman1sr/RecycleInRecyclerView/refs/heads/simple_rec_view/screenshot/simple.webp" width="360" height="640">
 </p>
 
