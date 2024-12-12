@@ -36,4 +36,10 @@
         android:layout_gravity="right"
         android:text="Show" />
 
+    <ImageView
+        android:id="@+id/img_profile"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        />
+
 </LinearLayout>
