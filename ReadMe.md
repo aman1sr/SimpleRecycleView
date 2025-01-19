@@ -2,7 +2,7 @@
 This is a Sample App to Demo working of a Simple RecyclerView
 
 ### App Constist of serveral Parts : 
-- RecyclerView Basics 101 Working (You are here 🚀)
+- RecyclerView Basics 101 Working. (You are here 🚀)
 - RecyclerView with ListAdapter (Coming soon)
 - Nested RecyclerView Basic Example (Coming soon)
 - Nested RecyclerView with Multiple Views (Coming soon)
