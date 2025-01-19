@@ -2,27 +2,31 @@ package com.example.recinrecview
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.SimpleCursorAdapter
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recinrecview.databinding.ActivityMainBinding
+
 import kotlinx.coroutines.launch
-const val TAG = "Quote_d"
+const val TAG = "News_d"
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
-    lateinit var viewModel: QuoteViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater)
-        viewModel = ViewModelProvider(this,QuoteViewModelFactory(QuoteRepository())).get(QuoteViewModel::class.java)
         setContentView(binding.root)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -31,19 +35,16 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-
-    observeQuoteData()
+        setupRecyclerView()
 
     }
 
-    private fun observeQuoteData() {
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewModel.data.collect{quote ->
-                    Log.d(TAG, "observeQuoteData: ${quote}")
-                    Toast.makeText(this@MainActivity, "Data Fetch : ${quote?.size}", Toast.LENGTH_SHORT).show()
-                }
-            }
+    private fun setupRecyclerView() {
+        Utils.getStaticNewsData()?.let {
+            binding.recView.adapter = NewsAdapter(it)
+        binding.recView.layoutManager = LinearLayoutManager(this@MainActivity)
         }
     }
+
+
 }
