@@ -41,7 +41,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupRecyclerView() {
         Utils.getStaticNewsData()?.let {
-            binding.recView.adapter = NewsAdapter(it)
+            binding.recView.adapter = NewsAdapter().apply {
+                submitList(it)
+            }
         binding.recView.layoutManager = LinearLayoutManager(this@MainActivity)
         }
     }

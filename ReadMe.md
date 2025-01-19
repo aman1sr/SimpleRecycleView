@@ -2,8 +2,8 @@
 This is a Sample App to Demo working of a Simple RecyclerView
 
 ### App Constist of serveral Parts : 
-- RecyclerView Basics 101 Working. (You are here 🚀)
-- RecyclerView with ListAdapter (Coming soon)
+- RecyclerView Basics 101 Working. 
+- RecyclerView with ListAdapter (You are here 🚀)
 - Nested RecyclerView Basic Example (Coming soon)
 - Nested RecyclerView with Multiple Views (Coming soon)
 
@@ -11,7 +11,6 @@ This is a Sample App to Demo working of a Simple RecyclerView
 <p align="center">
   <img alt="RecView1" src="https://raw.githubusercontent.com/aman1sr/RecycleInRecyclerView/refs/heads/simple_rec_view/screenshot/simple.webp" width="360" height="640">
 </p>
-
 
 
 References:
